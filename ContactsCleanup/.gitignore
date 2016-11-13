@@ -6,4 +6,5 @@ input
 *.ipr
 *.iws
 out
+.idea
 

@@ -120,8 +120,8 @@ class Contact {
     final List<String> tokens = CsvParser.tokenize(line);
     Contact c = new Contact();
     c.contactId = getFieldIfAvailable(tokens, "contactId");
-    c.firstName = getFieldIfAvailable(tokens, "firstName");
-    c.lastName = getFieldIfAvailable(tokens, "lastName");
+    c.firstName = initCap(getFieldIfAvailable(tokens, "firstName"));
+    c.lastName = initCap(getFieldIfAvailable(tokens, "lastName"));
     c.street = getFieldIfAvailable(tokens, "street");
     c.city = getFieldIfAvailable(tokens, "city");
     c.state = getFieldIfAvailable(tokens, "state");
@@ -131,6 +131,13 @@ class Contact {
     c.isNcoaAddress = "1".equals(getFieldIfAvailable(tokens, "isNcoaAddress"));
 
     return c;
+  }
+
+  private static String initCap(final String value) {
+    if (value == null || value.isEmpty()) {
+      return value;
+    }
+    return Character.toUpperCase(value.charAt(0)) + value.substring(1).toLowerCase();
   }
 
   private static String getFieldIfAvailable(final List<String> tokens, final String fieldName) {
