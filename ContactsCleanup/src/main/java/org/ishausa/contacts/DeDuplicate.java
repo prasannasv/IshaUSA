@@ -75,6 +75,19 @@ public class DeDuplicate {
 }
 
 class Contact {
+  final Map<String, Integer> fieldToCsvIndexMap = new HashMap<>() {
+    {
+      put("contactId", 0);
+      put("firstName", 1);
+      put("lastName", 2);
+      put("street", 3);
+      put("city", 4);
+      put("state", 5);
+      put("country", 6);
+      put("zip", 7);
+    }
+  };
+
   String contactId;
   String firstName;
   String lastName;
@@ -89,18 +102,27 @@ class Contact {
   static Contact fromCsv(String line) {
     final List<String> tokens = CsvParser.tokenize(line);
     Contact c = new Contact();
-    c.contactId = tokens.get(0);
-    c.firstName = tokens.get(1);
-    c.lastName = tokens.get(2);
-    c.street = tokens.get(3);
-    c.city = tokens.get(4);
-    c.state = tokens.get(5);
-    c.zip = tokens.get(6);
-    c.country = tokens.get(7);
-    c.isMeditator = "1".equals(tokens.get(8));
-    c.isNcoaAddress = "1".equals(tokens.get(9));
+    c.contactId = getFieldIfAvailable(tokens, "contactId");
+    c.firstName = getFieldIfAvailable(tokens, "firstName");
+    c.lastName = getFieldIfAvailable(tokens, "lastName");
+    c.street = getFieldIfAvailable(tokens, "street");
+    c.city = getFieldIfAvailable(tokens, "city");
+    c.state = getFieldIfAvailable(tokens, "state");
+    c.zip = getFieldIfAvailable(tokens, "zip");
+    c.country = getFieldIfAvailable(tokens, "country");
+    c.isMeditator = "1".equals(getFieldIfAvailable(tokens, "isMeditator"));
+    c.isNcoaAddress = "1".equals(getFieldIfAvailable(tokens, "isNcoaAddress"));
 
     return c;
+  }
+
+  private static String getFieldIfAvailable(final List<String> tokens, final String fieldName) {
+    if (fieldToCsvIndexMap.containsKey(fieldName)) {
+      if (tokens.size() > fieldToCsvIndexMap.get(fieldName)) {
+        return tokens.get(fieldToCsvIndexMap.get(fieldName));
+      }
+    }
+    return "";
   }
 
   String getAddress() {
