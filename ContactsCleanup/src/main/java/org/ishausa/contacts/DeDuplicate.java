@@ -75,7 +75,7 @@ public class DeDuplicate {
 }
 
 class Contact {
-  final Map<String, Integer> fieldToCsvIndexMap = new HashMap<>() {
+  private static final Map<String, Integer> FIELD_TO_CSV_INDEX_MAP = new HashMap<String, Integer>() {
     {
       put("contactId", 0);
       put("firstName", 1);
@@ -117,9 +117,9 @@ class Contact {
   }
 
   private static String getFieldIfAvailable(final List<String> tokens, final String fieldName) {
-    if (fieldToCsvIndexMap.containsKey(fieldName)) {
-      if (tokens.size() > fieldToCsvIndexMap.get(fieldName)) {
-        return tokens.get(fieldToCsvIndexMap.get(fieldName));
+    if (FIELD_TO_CSV_INDEX_MAP.containsKey(fieldName)) {
+      if (tokens.size() > FIELD_TO_CSV_INDEX_MAP.get(fieldName)) {
+        return tokens.get(FIELD_TO_CSV_INDEX_MAP.get(fieldName));
       }
     }
     return "";
