@@ -2,3 +2,8 @@
 gradle/
 build
 input
+*.iml
+*.ipr
+*.iws
+out
+

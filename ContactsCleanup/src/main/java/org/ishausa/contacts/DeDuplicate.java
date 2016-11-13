@@ -45,19 +45,10 @@ public class DeDuplicate {
   }
 
   private static void printHeader() {
-    System.out.println("Primary Contact Id,Primary Street,Primary City,Primary State,Primary Country,Group Contact Id(s),Group First Name(s),Group Last Name(s)");
+    System.out.println("Is Primary?,Primary Contact Id,Primary Street,Primary City,Primary State,Primary Country,Group Contact Id(s),Group First Name(s),Group Last Name(s)");
   }
 
   private static void printGroup(final List<Contact> contacts) {
-    final StringBuilder out = new StringBuilder();
-
-    final Contact primary = contacts.get(0);
-    out.append(primary.contactId).append(",");
-    out.append(CsvParser.escapeAsCsvToken(primary.street)).append(",");
-    out.append(primary.city).append(",");
-    out.append(primary.state).append(",");
-    out.append(primary.country).append(",");
-
     final StringBuilder contactIds = new StringBuilder();
     final StringBuilder firstNames = new StringBuilder();
     final StringBuilder lastNames = new StringBuilder();
@@ -66,9 +57,32 @@ public class DeDuplicate {
       firstNames.append(contact.firstName).append(", ");
       lastNames.append(contact.lastName).append(", ");
     }
-    out.append(CsvParser.escapeAsCsvToken(contactIds.toString())).append(",");
-    out.append(CsvParser.escapeAsCsvToken(firstNames.toString())).append(",");
-    out.append(CsvParser.escapeAsCsvToken(lastNames.toString())).append(",");
+    final Contact primary = contacts.get(0);
+    primary.groupContactIds = CsvParser.escapeAsCsvToken(contactIds.toString());
+    primary.groupFirstNames = CsvParser.escapeAsCsvToken(firstNames.toString());
+    primary.groupLastNames = CsvParser.escapeAsCsvToken(lastNames.toString());
+
+    boolean isPrimary = true;
+    for (final Contact contact : contacts) {
+      printContact(contact, isPrimary);
+      if (isPrimary) {
+        isPrimary = false;
+      }
+    }
+  }
+
+  private static void printContact(final Contact contact, final boolean isPrimary) {
+    final StringBuilder out = new StringBuilder();
+
+    out.append(isPrimary ? "Y" : "N").append(",");
+    out.append(contact.contactId).append(",");
+    out.append(CsvParser.escapeAsCsvToken(contact.street)).append(",");
+    out.append(contact.city).append(",");
+    out.append(contact.state).append(",");
+    out.append(contact.country).append(",");
+    out.append(contact.groupContactIds).append(",");
+    out.append(contact.groupFirstNames).append(",");
+    out.append(contact.groupLastNames).append(",");
 
     System.out.println(out.toString());
   }
@@ -98,6 +112,9 @@ class Contact {
   String country;
   boolean isMeditator;
   boolean isNcoaAddress;
+  String groupContactIds = "";
+  String groupFirstNames = "";
+  String groupLastNames = "";
 
   static Contact fromCsv(String line) {
     final List<String> tokens = CsvParser.tokenize(line);
