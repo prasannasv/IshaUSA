@@ -2,6 +2,7 @@ package org.ishausa.contacts;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Given an input file that is in csv format with the following header:
@@ -20,7 +21,7 @@ public class DeDuplicate {
       // group Contacts by address (Primary Street, Primary City, Primary State/Province and Primary Zip/Postal Code)
       final String address = contact.getAddress();
       if (!contactsGroupedByAddress.containsKey(address)) {
-        contactsGroupedByAddress.put(address, new ArrayList<Contact>());
+        contactsGroupedByAddress.put(address, new ArrayList<>());
       }
       contactsGroupedByAddress.get(address).add(contact);
     }
@@ -45,22 +46,12 @@ public class DeDuplicate {
   }
 
   private static void printHeader() {
-    System.out.println("Is Primary?,Primary Contact Id,Primary Street,Primary City,Primary State,Primary Country,Group Contact Id(s),Group First Name(s),Group Last Name(s)");
+    System.out.println("Is Primary?,Contact Id,First Name,Last Name,Street,City,State,Zip,Country,Group First Name(s)");
   }
 
   private static void printGroup(final List<Contact> contacts) {
-    final StringBuilder contactIds = new StringBuilder();
-    final StringBuilder firstNames = new StringBuilder();
-    final StringBuilder lastNames = new StringBuilder();
-    for (final Contact contact : contacts) {
-      contactIds.append(contact.contactId).append(", ");
-      firstNames.append(contact.firstName).append(", ");
-      lastNames.append(contact.lastName).append(", ");
-    }
     final Contact primary = contacts.get(0);
-    primary.groupContactIds = CsvParser.escapeAsCsvToken(contactIds.toString());
-    primary.groupFirstNames = CsvParser.escapeAsCsvToken(firstNames.toString());
-    primary.groupLastNames = CsvParser.escapeAsCsvToken(lastNames.toString());
+    primary.setToAddress(contacts);
 
     boolean isPrimary = true;
     for (final Contact contact : contacts) {
@@ -74,15 +65,16 @@ public class DeDuplicate {
   private static void printContact(final Contact contact, final boolean isPrimary) {
     final StringBuilder out = new StringBuilder();
 
-    out.append(isPrimary ? "Y" : "N").append(",");
-    out.append(contact.contactId).append(",");
-    out.append(CsvParser.escapeAsCsvToken(contact.street)).append(",");
-    out.append(contact.city).append(",");
-    out.append(contact.state).append(",");
-    out.append(contact.country).append(",");
-    out.append(contact.groupContactIds).append(",");
-    out.append(contact.groupFirstNames).append(",");
-    out.append(contact.groupLastNames).append(",");
+    out.append(isPrimary ? 'Y' : 'N').append(',');
+    out.append(contact.contactId).append(',');
+    out.append(contact.firstName).append(',');
+    out.append(contact.lastName).append(',');
+    out.append(CsvParser.escapeAsCsvToken(contact.street)).append(',');
+    out.append(contact.city).append(',');
+    out.append(contact.state).append(',');
+    out.append(contact.zip).append(',');
+    out.append(contact.country).append(',');
+    out.append(contact.toAddress);
 
     System.out.println(out.toString());
   }
@@ -112,9 +104,7 @@ class Contact {
   String country;
   boolean isMeditator;
   boolean isNcoaAddress;
-  String groupContactIds = "";
-  String groupFirstNames = "";
-  String groupLastNames = "";
+  String toAddress = "";
 
   static Contact fromCsv(String line) {
     final List<String> tokens = CsvParser.tokenize(line);
@@ -137,7 +127,9 @@ class Contact {
     if (value == null || value.isEmpty()) {
       return value;
     }
-    return Character.toUpperCase(value.charAt(0)) + value.substring(1).toLowerCase();
+    return Arrays.stream(value.split(" "))
+            .map(n -> Character.toUpperCase(n.charAt(0)) + n.substring(1).toLowerCase())
+            .collect(Collectors.joining(" "));
   }
 
   private static String getFieldIfAvailable(final List<String> tokens, final String fieldName) {
@@ -155,6 +147,16 @@ class Contact {
       return String.valueOf(System.currentTimeMillis());
     }
     return street + city + state + zip;
+  }
+
+  void setToAddress(final List<Contact> contacts) {
+    final String firstNames = contacts.stream().map(c -> c.firstName).collect(Collectors.joining(", "));
+    final int lastComma = firstNames.lastIndexOf(',');
+    if (lastComma > 0) {
+      toAddress = firstNames.substring(0, lastComma) + " and" + firstNames.substring(lastComma + 1);
+    } else {
+      toAddress = firstNames;
+    }
   }
 }
 
