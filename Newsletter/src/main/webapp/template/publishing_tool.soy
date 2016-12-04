@@ -1,0 +1,66 @@
+{namespace org.ishausa.publishing.newsletter}
+/**
+ * Says hello to the world.
+ */
+{template .index}
+<html>
+<head>
+  <title>Newsletter Publishing Tool</title>
+</head>
+<body>
+  <header>
+  </header>
+    <form action="/" method="POST">
+        <h2>Video Link</h2>
+        <input type="text" name="video">
+        <hr>
+        <h2>Adiyogi Updates</h2>
+        <textarea name="adiyogi-full">Paste the full contents here</textarea>
+        <hr>
+        <h2>Article</h2>
+        <textarea name="article-full">Paste the full contents here</textarea>
+        <hr>
+        <h2>New Announcements</h2>
+        <h3>This Week In Photos</h3>
+        <textarea name="photos-full">Paste the full contents here</textarea>
+        <h3>News One</h3>
+        <label>Title: </label><input type="text" name="news1-title"><br>
+        <label>Content</label><br>
+        <textarea name="news1-full">Paste the full contents here</textarea><br>
+        <h3>News Two</h3>
+        <label>Title: </label><input type="text" name="news2-title"><br>
+        <label>Content</label><br>
+        <textarea name="news2-full">Paste the full contents here</textarea><br>
+        <h3>Isha in the News...</h3>
+        <textarea name="in-the-news-full">Paste the full contents here</textarea>
+        <hr>
+        <h2>Volunteering Opportunities</h2>
+        <textarea name="volunteer-full">Paste the full contents here</textarea>
+        <hr>
+        <h2>Programs</h2>
+        <h3>Programs at Isha Institute of Inner-sciences (iii)</h3>
+        <label>Content</label><br>
+        <textarea name="iii-programs-full">Paste the full contents here</textarea>
+        <h3>Programs in the City Centers across US and Canada</h3>
+        <label>Content</label><br>
+        <textarea name="us-ca-programs-full">Paste the full contents here</textarea>
+        <h3>Live in a Consecrated Space</h3>
+        <label>Content</label><br>
+        <textarea name="consecrated-programs-full">Paste the full contents here</textarea>
+        <h3>International Schedule</h3>
+        <label>Content</label><br>
+        <textarea name="international-programs-full">Paste the full contents here</textarea>
+        <hr>
+        <h2>Sharing</h2>
+        <textarea name="sharing-full">Paste the full contents here</textarea>
+        <hr>
+
+        <input type="submit" value="Submit">
+    </form>
+  <footer>
+  </footer>
+  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+  <script>{literal}tinymce.init({ selector:'textarea' });{/literal}</script>
+</body>
+</html>
+{/template}
