@@ -1,80 +1,131 @@
 {namespace org.ishausa.publishing.newsletter}
 /**
- * Says hello to the world.
+ * Newsletter Publishing Tool Home Page.
  */
 {template .index}
-<html>
-<head>
-  <title>Newsletter Publishing Tool</title>
-</head>
-<body>
-  <header>
-  </header>
-    <form action="/" method="POST">
-        <h2>Video Link</h2>
-        <input type="text" name="video">
-        <hr>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Isha Weekly Newsletter Publishing TOol">
+    <meta name="author" content="Prasanna Venkat">
+    <link rel="icon" href="../../favicon.ico">
 
-        <h2>Adiyogi Updates</h2>
-        <label>Title: </label><input type="text" name="adiyogi_updates-title">
-        <textarea name="adiyogi_updates-full">Paste the full contents here</textarea>
-        <hr>
+    <title>Newsletter Publishing Tool</title>
 
-        <h2>Article</h2>
-        <label>Title: </label><input type="text" name="article-title">
-        <textarea name="article-full">Paste the full contents here</textarea>
-        <hr>
+    <!-- Custom styles for this template -->
+    <link href="/css/publishing_tool.css" rel="stylesheet">
+  </head>
 
-        <h2>New Announcements</h2>
-        <h3>This Week In Photos</h3>
-        <label>Title: </label><input type="text" name="news-title" value="This Week In Photos">
-        <textarea name="news-full">Paste the full contents here</textarea>
-        <h3>News One</h3>
-        <label>Title: </label><input type="text" name="news-title"><br>
-        <textarea name="news-full">Paste the full contents here</textarea><br>
-        <h3>News Two</h3>
-        <label>Title: </label><input type="text" name="news-title"><br>
-        <textarea name="news-full">Paste the full contents here</textarea><br>
-        <h3>Isha in the News...</h3>
-        <label>Title: </label><input type="text" name="news-title" value="Isha in the News..."><br>
-        <textarea name="news-full">Paste the full contents here</textarea>
-        <hr>
+  <body>
 
-        <h2>Volunteering Opportunities</h2>
-        <textarea name="volunteering-full">Paste the full contents here</textarea>
-        <hr>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Newsletter Publishing Tool</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
 
-        <h2>Programs</h2>
-        <h3>Programs at Isha Institute of Inner-sciences (iii)</h3>
-        <label>Title: </label><input type="text" name="programs-title" value="Programs at Isha Institute of Inner-sciences (iii)"><br>
-        <textarea name="programs-full">Paste the full contents here</textarea>
-        <h3>Programs in the City Centers across US and Canada</h3>
-        <label>Title: </label><input type="text" name="programs-title" value="Programs in the City Centers across US and Canada"><br>
-        <textarea name="programs-full">Paste the full contents here</textarea>
-        <h3>Live in a Consecrated Space</h3>
-        <label>Title: </label><input type="text" name="programs-title" value="Live in a Consecrated Space"><br>
-        <textarea name="programs-full">Paste the full contents here</textarea>
-        <h3>International Schedule</h3>
-        <label>Title: </label><input type="text" name="programs-title" value="International Schedule"><br>
-        <textarea name="programs-full">Paste the full contents here</textarea>
-        <hr>
+    <div class="container">
+      <div class="starter-template">
+        <form action="/" method="POST">
+            <h2>Video Link</h2>
+            <input type="text" name="video">
+            <hr>
 
-        <h2>Sharing</h2>
-        <label>Title: </label><input type="text" name="sharing-title"><br>
-        <textarea name="sharing-full">Paste the full contents here</textarea>
-        <hr>
+            <h2>Adiyogi Updates</h2>
+            <label>Title: </label><input type="text" name="adiyogi_updates-title">
+            <textarea name="adiyogi_updates-full">Paste the full contents here</textarea>
+            <hr>
 
-        <h2>Life Style</h2>
-        <label>Title: </label><input type="text" name="lifestyle-title"><br>
-        <textarea name="lifestyle-full">Paste the full contents here</textarea>
-        <hr>
+            <h2>Article</h2>
+            <label>Title: </label><input type="text" name="article-title">
+            <textarea name="article-full">Paste the full contents here</textarea>
+            <hr>
 
-        <input type="submit" value="Submit">
-    </form>
-  <footer>
-  </footer>
-  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-  <script>{literal}tinymce.init({ selector:'textarea' });{/literal}</script>
-</body>
+            <h2>New Announcements</h2>
+            <h3>This Week In Photos</h3>
+            <label>Title: </label><input type="text" name="news-title" value="This Week In Photos">
+            <textarea name="news-full">Paste the full contents here</textarea>
+            <h3>News One</h3>
+            <label>Title: </label><input type="text" name="news-title"><br>
+            <textarea name="news-full">Paste the full contents here</textarea><br>
+            <h3>News Two</h3>
+            <label>Title: </label><input type="text" name="news-title"><br>
+            <textarea name="news-full">Paste the full contents here</textarea><br>
+            <h3>Isha in the News...</h3>
+            <label>Title: </label><input type="text" name="news-title" value="Isha in the News..."><br>
+            <textarea name="news-full">Paste the full contents here</textarea>
+            <hr>
+
+            <h2>Volunteering Opportunities</h2>
+            <textarea name="volunteering-full">Paste the full contents here</textarea>
+            <hr>
+
+            <h2>Programs</h2>
+            <h3>Programs at Isha Institute of Inner-sciences (iii)</h3>
+            <label>Title: </label><input type="text" name="programs-title" value="Programs at Isha Institute of Inner-sciences (iii)"><br>
+            <textarea name="programs-full">Paste the full contents here</textarea>
+            <h3>Programs in the City Centers across US and Canada</h3>
+            <label>Title: </label><input type="text" name="programs-title" value="Programs in the City Centers across US and Canada"><br>
+            <textarea name="programs-full">Paste the full contents here</textarea>
+            <h3>Live in a Consecrated Space</h3>
+            <label>Title: </label><input type="text" name="programs-title" value="Live in a Consecrated Space"><br>
+            <textarea name="programs-full">Paste the full contents here</textarea>
+            <h3>International Schedule</h3>
+            <label>Title: </label><input type="text" name="programs-title" value="International Schedule"><br>
+            <textarea name="programs-full">Paste the full contents here</textarea>
+            <hr>
+
+            <h2>Sharing</h2>
+            <label>Title: </label><input type="text" name="sharing-title"><br>
+            <textarea name="sharing-full">Paste the full contents here</textarea>
+            <hr>
+
+            <h2>Life Style</h2>
+            <label>Title: </label><input type="text" name="lifestyle-title"><br>
+            <textarea name="lifestyle-full">Paste the full contents here</textarea>
+            <hr>
+
+            <input type="submit" value="Submit">
+        </form>
+      </div>
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>{literal}tinymce.init({ selector:'textarea' });{/literal}</script>
+  </body>
 </html>
 {/template}

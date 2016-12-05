@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import static spark.Spark.exception;
 import static spark.Spark.get;
 import static spark.Spark.post;
+import static spark.Spark.staticFiles;
 
 
 /**
@@ -23,6 +24,8 @@ public class PublishingTool {
     private static final NewsletterCreator NEWSLETTER_CREATOR = new NewsletterCreator();
 
     public static void main(final String[] args) {
+        staticFiles.location("/static");
+
         get("/", (req, res) -> SoyRenderer.INSTANCE.render(SoyRenderer.Template.INDEX));
 
         post("/", PublishingTool::handlePost);
