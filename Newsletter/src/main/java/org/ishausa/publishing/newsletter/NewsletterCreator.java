@@ -45,14 +45,17 @@ class NewsletterCreator {
         final String fullContentParam = queryParamPrefix + "full";
         final String summaryContentParam = queryParamPrefix + "summary";
 
-        addSection(newsletter, sectionType, params.get(titleParam), params.get(fullContentParam), params.get(summaryContentParam));
+        final Section section = new Section(sectionType);
+        addItems(section, params.get(titleParam), params.get(fullContentParam), params.get(summaryContentParam));
+        if (!section.isEmpty()) {
+            newsletter.addSection(section);
+        }
     }
 
-    private void addSection(final Newsletter newsletter,
-                            final StandardSection sectionType,
-                            final List<String> titles,
-                            final List<String> fullContents,
-                            final List<String> summaryContents) {
+    private void addItems(final Section section,
+                          final List<String> titles,
+                          final List<String> fullContents,
+                          final List<String> summaryContents) {
 
         if (fullContents != null && titles != null) {
             for (int i = 0; i < titles.size(); ++i) {
@@ -61,24 +64,12 @@ class NewsletterCreator {
                 final String summaryContent = summaryContents != null ? summaryContents.get(i) : "";
 
                 if (!Strings.isNullOrEmpty(title) && !Strings.isNullOrEmpty(fullContent)) {
-                    newsletter.addSection(createSection(sectionType, title, fullContent, summaryContent));
+                    section.addItem(new Item(title, fullContent, summaryContent));
                 }
             }
         }
     }
 
-    private Section createSection(final StandardSection sectionType,
-                                  final String title,
-                                  final String htmlContent,
-                                  final String htmlSummary) {
-        final Section section = new Section(sectionType);
-
-        section.addItem(new Item(title, htmlContent, htmlSummary));
-
-        return section;
-    }
-
-    //TODO: Handle multiple items in a single section
     private Map<String, List<String>> parseContentToMap(final String postBody) throws Exception {
         final Map<String, List<String>> paramsMap = new HashMap<>();
 

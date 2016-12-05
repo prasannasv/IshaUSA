@@ -23,6 +23,10 @@ public class Section {
         items.add(item);
     }
 
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
+
     public void printForWordpress(final PrintWriter writer) {
         writeSectionTitle(writer);
         for (final Item item : items) {
