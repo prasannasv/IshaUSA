@@ -42,9 +42,9 @@
  * @param title the title of the spoiler
  * @param htmlContent the html content that forms the body of the spoiler
  */
-{template .spoiler}
+{template .spoiler autoescape="deprecated-contextual"}
 [su_spoiler title="{$title}" style="fancy" icon="chevron"]
-{$htmlContent}
+{$htmlContent|noAutoescape}
 [/su_spoiler]
 {/template}
 

@@ -20,7 +20,7 @@ import static spark.Spark.post;
 public class PublishingTool {
     private static final Logger log = Logger.getLogger(PublishingTool.class.getName());
 
-    private static final PostBodyParser postBodyParser = new PostBodyParser();
+    private static final NewsletterCreator NEWSLETTER_CREATOR = new NewsletterCreator();
 
     public static void main(final String[] args) {
         get("/", (req, res) -> SoyRenderer.INSTANCE.render(SoyRenderer.Template.INDEX));
@@ -36,7 +36,7 @@ public class PublishingTool {
         final String content = request.body();
 
         // Build the Newsletter from the paramsMap by building out each section
-        final Newsletter newsletter = postBodyParser.parseToNewsletter(content);
+        final Newsletter newsletter = NEWSLETTER_CREATOR.parseToNewsletter(content);
 
         // Dump the html content of the Newsletter for wordpress
         final PrintWriter printWriter = new PrintWriter(response.raw().getOutputStream());
