@@ -7,8 +7,8 @@ public enum StandardSection {
     VIDEO("This weeks video", "video", false /* isAccordion */),
     ADIYOGI_UPDATES("Adiyogi Updates", "adiyogi"),
     ARTICLE("Article", "article"),
-    NEW_ANNOUNCEMENTS("New Announcements", "news"),
-    VOLUNTEERING_OPPORTUNITIES("Volunteering Opportunities", "volunteer"),
+    NEWS("New Announcements", "news"),
+    VOLUNTEERING("Volunteering Opportunities", "volunteer"),
     PROGRAMS("Program Schedule", "programs"),
     SHARING("Sharing", "sharing"),
     LIFESTYLE("Life Style", "lifestyle");
