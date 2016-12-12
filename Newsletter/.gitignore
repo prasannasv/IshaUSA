@@ -1,6 +1,5 @@
 .gradle
 .idea
-gradle
 *.iml
 *.ipr
 *.iws
